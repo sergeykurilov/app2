@@ -6,10 +6,11 @@
 		"node": "16.0.0"
 	},
 	"scripts": {
-		"start": "webpack serve",
+		"dev": "webpack serve",
 		"build": "webpack --mode production",
-		"serve": "serve dist -p 3002",
-		"clean": "rm -rf dist"
+		"start": "serve -s dist",
+		"clean": "rm -rf dist",
+		"heroku-postbuild": "npm run build"
 	},
 	"dependencies": {
 		"@types/node": "^15.0.3",
