@@ -1,17 +1,18 @@
 import React, { useState } from "react";
+import logo from "../assets/logo.svg";
 import "../index.scss";
 const Counter = () => {
   const [count, setCount] = useState(1);
 
   return (
     <div className="bg-orange-300">
-      <div>
-        Add by one each asdasd click <strong>APP-2</strong>
+      <div className="flex flex-col">
+        <div>Your click count : {count} </div>
+        <button onClick={() => setCount((prevState) => prevState * 2)}>
+          Click me
+        </button>
       </div>
-      <div>Your click count : {count} </div>
-      <button onClick={() => setCount((prevState) => prevState * 2)}>
-        Click me
-      </button>
+      <img src={logo.toString()} width={100} height={100} alt="Example SVG" />
     </div>
   );
 };
