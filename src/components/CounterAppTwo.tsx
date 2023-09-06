@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from "react";
 import logo from "../assets/logo.svg";
 import "../index.scss";
@@ -5,18 +6,16 @@ const Counter = () => {
   const [count, setCount] = useState(1);
 
   useEffect(() => {
-    const channel = new BroadcastChannel("counterChannel");
-
-    // Listener for incoming messages
-    channel.onmessage = (event) => {
-      if (event.data.from === "APP1") {
-        setCount(event.data.value * 2);
+    const handleEvent = (e: any) => {
+      if (e.detail.from === "APP1") {
+        setCount(e.detail.count * 2);
       }
     };
 
-    // Cleanup
+    window.addEventListener("counterChange", handleEvent);
+
     return () => {
-      channel.close();
+      window.removeEventListener("counterChange", handleEvent);
     };
   }, []);
 
@@ -24,10 +23,11 @@ const Counter = () => {
     const newCount = count * 2;
     setCount(newCount);
 
-    // Broadcast the new count value
-    const channel = new BroadcastChannel("counterChannel");
-    channel.postMessage({ from: "APP2", value: newCount });
-    channel.close();
+    const event = new CustomEvent("counterChange", {
+      detail: { from: "APP2", count: newCount },
+    });
+
+    window.dispatchEvent(event);
   };
   return (
     <div className="flex h-full items-center justify-center bg-[#FCF3DBFF] text-center font-[bold] text-lg">
