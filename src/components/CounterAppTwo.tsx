@@ -30,7 +30,7 @@ const Counter = () => {
     window.dispatchEvent(event);
   };
   return (
-    <div className="flex h-full items-center justify-center bg-[#FCF3DBFF] text-center font-[bold] text-lg">
+    <div className="flex h-96 items-center justify-center bg-[#FCF3DBFF] text-center font-[bold] text-lg">
       <div className="flex flex-col">
         <div>Your click count : {count} </div>
         <button onClick={handleClick}>Click me</button>
